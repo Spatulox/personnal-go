@@ -50,10 +50,4 @@ func (l *LogHelper) Debug(message string, err ...error) {
 	}
 }
 
-// -----------------------------------------------------
-
-func Println(message string) {
-	fmt.Println(message)
-}
-
 var Log LogHelper

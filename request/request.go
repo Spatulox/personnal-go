@@ -92,16 +92,17 @@ func (api *Api) DELETE(endpoint string) (string, error) {
 // ------------------------------------------------------------------------- //
 
 func (api *Api) genericRequest(method, endpoint string, data interface{}) (string, error) {
-	var body *bytes.Buffer
+
+	var bodyReader io.Reader
 	if data != nil {
 		jsonData, err := json.Marshal(data)
 		if err != nil {
 			return "", err
 		}
-		body = bytes.NewBuffer(jsonData)
+		bodyReader = bytes.NewBuffer(jsonData)
 	}
 
-	req, err := http.NewRequest(method, api.baseApi+endpoint, body)
+	req, err := http.NewRequest(method, api.baseApi+endpoint, bodyReader)
 	if err != nil {
 		return "", err
 	}
